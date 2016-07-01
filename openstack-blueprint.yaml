@@ -450,7 +450,8 @@ groups:
       mem_scale_policy:
         type: cloudify.policies.types.threshold
         properties:
-          service: sprout_incoming
+          service: cpu.total.user
+          stability_time: 60
           threshold: 20
         triggers:
           scale_trigger:
