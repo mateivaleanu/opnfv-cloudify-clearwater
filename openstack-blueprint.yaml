@@ -488,7 +488,7 @@ groups:
         properties:
           service: cpu.total.user
           stability_time: 60
-          threshold: 25
+          threshold: 100
         triggers:
           scale_trigger:
             type: cloudify.policies.triggers.execute_workflow
