@@ -127,7 +127,8 @@ cfy executions start -w scale -d clearwater-test -p scale.yaml
         type: cloudify.policies.types.threshold
         properties:
           service: cpu.total.user
-          threshold: 85
+          stability_time: 60
+          threshold: 25
         triggers:
           scale_trigger:
             type: cloudify.policies.triggers.execute_workflow
