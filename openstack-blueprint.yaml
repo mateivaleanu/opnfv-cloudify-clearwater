@@ -535,6 +535,7 @@ groups:
         properties:
           service: cpu.total.user
           threshold: 10
+          upper_bound: false
           stability_time: 60
         triggers:
           scale_trigger:
