@@ -208,7 +208,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
-        default_instances: 1
+        
           min_instances: 1
           max_instances: 1
     properties:
