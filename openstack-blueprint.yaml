@@ -209,8 +209,8 @@ node_templates:
       scalable:
         properties:
         default_instances: 1
-          min_instances: 0
-          max_instances: 0
+          min_instances: 1
+          max_instances: 1
     properties:
       cloudify_agent:
           user: { get_input: agent_user }
