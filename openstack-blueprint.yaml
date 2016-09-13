@@ -97,7 +97,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
-          default_instances: 3
+          default_instances: 1
           min_instances: 1
     relationships:
       - target: base_security_group
@@ -203,29 +203,6 @@ node_templates:
         type: cloudify.openstack.server_connected_to_floating_ip
 
 
-  proxy_host:
-    type: cloudify.openstack.nodes.Server
-    capabilities:
-      scalable:
-        properties:
-          min_instances: 1
-          max_instances: 1
-    properties:
-      cloudify_agent:
-          user: { get_input: agent_user }
-      image: { get_input: image_id }
-      flavor: { get_input: flavor_id }
-    interfaces:
-      cloudify.interfaces.monitoring_agent:
-        install:
-          implementation: diamond.diamond_agent.tasks.install
-          inputs:
-            diamond_config:
-              interval: 10
-        start: diamond.diamond_agent.tasks.start
-        stop: diamond.diamond_agent.tasks.stop
-        uninstall: diamond.diamond_agent.tasks.uninstall
-
   # Declare clearwater and other software
   sprout:
     type: clearwater.nodes.sprout
@@ -300,12 +277,7 @@ node_templates:
       - type: cloudify.relationships.contained_in
         target: bind_host
 
-  proxy_node:
-    type: SNMPProxy
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: proxy_host
-
+  
   # Declare all security groups for clearwater and other nodes
   base_security_group:
     type: cloudify.openstack.nodes.SecurityGroup
@@ -505,7 +477,6 @@ node_templates:
     properties:
       floatingip:
         floating_network_name: { get_input: external_network_name }
-
 
 
 
