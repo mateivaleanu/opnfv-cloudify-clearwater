@@ -213,8 +213,7 @@ node_templates:
         target: sprout_host
       - type: app_connected_to_bind
         target: bind
-      - type: monitors_sprout_nodes
-        target: proxy_node
+      
 
   bono:
     type: clearwater.nodes.bono
@@ -225,8 +224,7 @@ node_templates:
         target: bono_host
       - type: app_connected_to_bind
         target: bind
-      - type: monitors_bono_nodes
-        target: proxy_node
+      
   ellis:
     type: clearwater.nodes.ellis
     properties:
