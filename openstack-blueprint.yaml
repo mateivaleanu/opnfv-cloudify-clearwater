@@ -97,7 +97,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
-          default_instances: 3
+          default_instances: 1
           min_instances: 1
     relationships:
       - target: base_security_group
@@ -208,8 +208,9 @@ node_templates:
     capabilities:
       scalable:
         properties:
-          min_instances: 1
-          max_instances: 1
+        default_instances: 1
+          min_instances: 0
+          max_instances: 0
     properties:
       cloudify_agent:
           user: { get_input: agent_user }
