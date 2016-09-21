@@ -508,22 +508,24 @@ node_templates:
 
 
 groups:
-  clearwater_hosts:
+  autoscaling_group:
     members: [sprout_host]
     policies:
       mem_scale_policy:
         type: cloudify.policies.types.threshold
         properties:
           service: cpu.total.user
-          stability_time: 60
           threshold: 20
+          upper_bound: true
+          stability_time: 60
+          
         triggers:
-          scale_trigger:
+          autoscale_trigger:
             type: cloudify.policies.triggers.execute_workflow
             parameters:
               workflow: scale
               workflow_parameters:
-                node_id: sprout
+                node_id: sprout_host
                 delta: 1
 
   
