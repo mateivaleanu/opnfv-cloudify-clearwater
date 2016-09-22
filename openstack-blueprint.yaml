@@ -529,7 +529,7 @@ groups:
                 delta: 1
                 
     
-      down_scale_policy:
+    down_scale_policy:
         type: cloudify.policies.types.threshold
         properties:
           service: cpu.total.user
