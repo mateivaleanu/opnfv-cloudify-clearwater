@@ -511,8 +511,8 @@ groups:
   autoscaling_group:
     members: [sprout_host]
     policies:
-      up_scale_policy:
-        type: cloudify.policies.types.threshold
+    up_scale_policy:
+       type: cloudify.policies.types.threshold
        properties:
           service: cpu.total.user
           threshold: 25
