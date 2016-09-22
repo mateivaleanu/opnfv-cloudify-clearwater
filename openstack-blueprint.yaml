@@ -505,21 +505,21 @@ node_templates:
     properties:
       floatingip:
         floating_network_name: { get_input: external_network_name }
-
-
+        
+        
 groups:
-  autoscaling_group:
+  clearwater_hosts:
     members: [sprout_host]
     policies:
-    up_scale_policy:
-       type: cloudify.policies.types.threshold
-       properties:
+      up_scale_policy:
+        type: cloudify.policies.types.threshold
+        properties:
           service: cpu.total.user
-          threshold: 25
+          threshold: 20
           upper_bound: true
           stability_time: 30
-       triggers:
-        execute_scaleup_workflow:
+        triggers:
+          scale_trigger:
             type: cloudify.policies.triggers.execute_workflow
             parameters:
               workflow: scale
@@ -528,8 +528,9 @@ groups:
                 scale_compute: true
                 delta: 1
                 
-    
-    down_scale_policy:
+                
+                
+      down_scale_policy:
         type: cloudify.policies.types.threshold
         properties:
           service: cpu.total.user
@@ -537,7 +538,7 @@ groups:
           upper_bound: false
           stability_time: 120
         triggers:
-          execute_scaledown_workflow:
+          scale_trigger:
             type: cloudify.policies.triggers.execute_workflow
             parameters:
               workflow: scale
@@ -546,6 +547,9 @@ groups:
                 scale_compute: true
                 delta: -1
                 
+
+
+
 
 
   
