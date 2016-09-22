@@ -518,7 +518,7 @@ groups:
           threshold: 25
           upper_bound: true
           stability_time: 30
-      triggers:
+       triggers:
         execute_scaleup_workflow:
             type: cloudify.policies.triggers.execute_workflow
             parameters:
