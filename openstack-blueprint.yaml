@@ -114,6 +114,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
+          default_instances: 2
           min_instances: 1
     relationships:
       - target: bono_floatingip
@@ -150,6 +151,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
+          default_instances: 2
           min_instances: 1
     relationships:
       - target: base_security_group
@@ -163,6 +165,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
+          default_instances: 2
           min_instances: 0
     relationships:
       - target: base_security_group
@@ -176,6 +179,7 @@ node_templates:
     capabilities:
       scalable:
         properties:
+          default_instances: 2
           min_instances: 1
     relationships:
       - target: base_security_group
@@ -536,7 +540,7 @@ groups:
           service: cpu.total.user
           threshold: 10
           upper_bound: false
-          stability_time: 300
+          stability_time: 3600
         triggers:
           scale_trigger:
             type: cloudify.policies.triggers.execute_workflow
