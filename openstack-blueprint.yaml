@@ -507,26 +507,48 @@ node_templates:
         floating_network_name: { get_input: external_network_name }
 
 
-groups:
+
+ 
+ groups:
   autoscaling_group:
     members: [sprout_host]
     policies:
-      mem_scale_policy:
+      up_scale_policy:
         type: cloudify.policies.types.threshold
-        properties:
+       properties:
           service: cpu.total.user
-          threshold: 20
+          threshold: 25
           upper_bound: true
-          stability_time: 60
-          
-        triggers:
-          autoscale_trigger:
+          stability_time: 30
+      triggers:
+        execute_scaleup_workflow:
             type: cloudify.policies.triggers.execute_workflow
             parameters:
               workflow: scale
               workflow_parameters:
-                node_id: sprout_host
+                scalable_entity_name: sprout
+                scale_compute: true
                 delta: 1
+                
+    
+      down_scale_policy:
+        type: cloudify.policies.types.threshold
+        properties:
+          service: cpu.total.user
+          threshold: 10
+          upper_bound: false
+          stability_time: 120
+        triggers:
+          execute_scaledown_workflow:
+            type: cloudify.policies.triggers.execute_workflow
+            parameters:
+              workflow: scale
+              workflow_parameters:
+                scalable_entity_name: sprout
+                scale_compute: true
+                delta: -1
+                
+
 
   
 
