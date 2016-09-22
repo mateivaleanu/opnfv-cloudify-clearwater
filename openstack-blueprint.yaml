@@ -507,8 +507,7 @@ node_templates:
         floating_network_name: { get_input: external_network_name }
 
 
-
- groups:
+groups:
   autoscaling_group:
     members: [sprout_host]
     policies:
