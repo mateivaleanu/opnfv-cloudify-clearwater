@@ -23,8 +23,8 @@ max_ttl = 600' | sudo tee --append /etc/chronos/chronos.conf
 ctx logger info "Configure the APT software source"
 if [ ! -f /etc/apt/sources.list.d/clearwater.list ]
   then
-    echo 'deb http://repo.cw-ngv.com/stable binary/' | sudo tee --append /etc/apt/sources.list.d/clearwater.list
-    curl -L http://repo.cw-ngv.com/repo_key | sudo apt-key add -
+    echo 'deb http://repo.cw-ngv.com/~aarch64/repo binary/' | sudo tee --append /etc/apt/sources.list.d/clearwater.list
+    curl -L http://repo.cw-ngv.com/~aarch64/keyFile | sudo apt-key add -
 fi
 sudo apt-get update
 

@@ -3,8 +3,8 @@
 ctx logger debug "${COMMAND}"
 
 ctx logger info "Configure the APT software source"
-echo 'deb http://repo.cw-ngv.com/stable binary/' | sudo tee --append /etc/apt/sources.list.d/clearwater.list
-curl -L http://repo.cw-ngv.com/repo_key | sudo apt-key add -
+echo 'deb http://repo.cw-ngv.com/~aarch64/repo binary/' | sudo tee --append /etc/apt/sources.list.d/clearwater.list
+curl -L http://repo.cw-ngv.com/~aarch64/keyFile | sudo apt-key add -
 sudo apt-get update
 
 ctx logger info "Now install the software"
