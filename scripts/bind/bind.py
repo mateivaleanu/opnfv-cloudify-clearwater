@@ -102,9 +102,11 @@ def configure(subject=None):
          error_message='Failed to change permissions {0}.'.format(CONFIG_PATH_PUBLIC))
 
     start()
+    stop()
+    start()
 
     # Reload bind server to reload new domain configuration
-    reload()
+    # reload()
 
 
 
