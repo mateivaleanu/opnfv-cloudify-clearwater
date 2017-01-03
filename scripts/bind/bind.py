@@ -101,6 +101,8 @@ def configure(subject=None):
     _run('sudo chmod 644 {0}'.format(CONFIG_PATH_PUBLIC),
          error_message='Failed to change permissions {0}.'.format(CONFIG_PATH_PUBLIC))
 
+    start()
+
     # Reload bind server to reload new domain configuration
     reload()
 
