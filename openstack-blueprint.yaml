@@ -16,6 +16,7 @@
 tosca_definitions_version: cloudify_dsl_1_2
 
 imports:
+  - http://www.getcloudify.org/spec/fabric-plugin/1.3.1/plugin.yaml
   - http://www.getcloudify.org/spec/cloudify/3.3.1/types.yaml
   - http://www.getcloudify.org/spec/openstack-plugin/1.3.1/plugin.yaml
   - http://www.getcloudify.org/spec/diamond-plugin/1.3.1/plugin.yaml
@@ -64,6 +65,12 @@ node_types:
           image: { get_input: image_id }
           flavor: { get_input: flavor_id }
     interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: fabric.fabric_plugin.tasks.run_commands
+          inputs:
+            commands:
+              - sudo apt-get install libpython-stdlib libpython2.7 libpython2.7-minimal libpython2.7-stdlib python python-apt-common python-bs4 python-cffi python-cffi-backend python-chardet python-cryptography python-enum34 python-html5lib python-idna python-ipaddress python-lxml python-minimal python-ndg-httpsclient python-openssl python-pkg-resources python-ply python-pyasn1 python-pycparser python-requestbuilder python-requests python-setuptools python-six python-urllib3 python2.7 python2.7-minimal --yes --force-yes -o DPkg::options::=--force-confnew
       cloudify.interfaces.monitoring_agent:
         install:
           implementation: diamond.diamond_agent.tasks.install
@@ -179,6 +186,12 @@ node_templates:
       image: { get_input: image_id }
       flavor: { get_input: flavor_id }
     interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: fabric.fabric_plugin.tasks.run_commands
+          inputs:
+            commands:
+              - sudo apt-get install libpython-stdlib libpython2.7 libpython2.7-minimal libpython2.7-stdlib python python-apt-common python-bs4 python-cffi python-cffi-backend python-chardet python-cryptography python-enum34 python-html5lib python-idna python-ipaddress python-lxml python-minimal python-ndg-httpsclient python-openssl python-pkg-resources python-ply python-pyasn1 python-pycparser python-requestbuilder python-requests python-setuptools python-six python-urllib3 python2.7 python2.7-minimal --yes --force-yes -o DPkg::options::=--force-confnew
       cloudify.interfaces.monitoring_agent:
         install:
           implementation: diamond.diamond_agent.tasks.install
