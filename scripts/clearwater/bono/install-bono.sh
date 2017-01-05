@@ -11,12 +11,15 @@ fi
 sudo apt-get update
 
 ctx logger info "Installing bono packages and other clearwater packages"
-sudo DEBIAN_FRONTEND=noninteractive apt-get install bono restund --yes --force-yes -o DPkg::options::=--force-confnew
-sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-management --yes --force-yes
-sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-snmpd --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive apt-get install bono restund libsnmp30=5.7.2~dfsg-clearwater4 --yes --allow-unauthenticated -o DPkg::options::=--force-confnew
+sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-management --yes --allow-unauthenticated
+sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-snmpd snmpd=5.7.2~dfsg-clearwater4 libsnmp-base=5.7.2~dfsg-clearwater4 libsnmp30=5.7.2~dfsg-clearwater4 --yes --allow-unauthenticated
+sudo systemctl daemon-reload
 ctx logger info "The installation packages is done correctly"
 
 ctx logger info "Configure a new DNS server"
 echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dnsmasq
 sudo service dnsmasq force-reload
+sudo monit unmonitor -g etcd
+sudo service clearwater-etcd start
 ctx logger info "Installation is done"

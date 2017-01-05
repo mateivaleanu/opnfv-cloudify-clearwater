@@ -12,13 +12,15 @@ sudo apt-get update
 
 ctx logger info "Installing homer packages and other clearwater packages"
 set +e
-sudo DEBIAN_FRONTEND=noninteractive  apt-get -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confnew install homer --yes --force-yes
-sudo DEBIAN_FRONTEND=noninteractive  apt-get install clearwater-management --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive  apt-get -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confnew install homer --yes --allow-unauthenticated
+sudo DEBIAN_FRONTEND=noninteractive  apt-get install clearwater-management --yes --allow-unauthenticated
 set -e
 ctx logger info "The installation packages is done correctly"
 
 ctx logger info "Use the DNS server"
 echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dnsmasq
 sudo service dnsmasq force-reload
+sudo monit unmonitor -g etcd
+sudo service clearwater-etcd start
 
 ctx logger info "Installation is done"

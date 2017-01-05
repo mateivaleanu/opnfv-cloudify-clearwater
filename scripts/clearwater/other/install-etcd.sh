@@ -8,10 +8,12 @@ curl -L http://repo.cw-ngv.com/repo_key | sudo apt-key add -
 sudo apt-get update
 
 ctx logger info "Now install the software"
-sudo   DEBIAN_FRONTEND=noninteractive apt-get install clearwater-config-manager --yes --force-yes
+sudo   DEBIAN_FRONTEND=noninteractive apt-get install clearwater-config-manager --yes --allow-unauthenticated
 ctx logger info "The software is installed"
 
 sudo /usr/share/clearwater/clearwater-config-manager/scripts/upload_shared_config
 #sudo /usr/share/clearwater/clearwater-config-manager/scripts/apply_shared_config
 
+sudo monit unmonitor -g etcd
+sudo service clearwater-etcd start
 ctx logger info "Installation is done"
