@@ -31,11 +31,12 @@ sudo apt-get update
 ctx logger info "Installing ralf packages and other clearwater packages"
 set +e
 sudo DEBIAN_FRONTEND=noninteractive apt-get install libsnmp30=5.7.2~dfsg-clearwater4 --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-snmpd=1.0-160214.201323 snmpd=5.7.2~dfsg-clearwater4 snmp=5.7.2~dfsg-clearwater4 --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive apt-get install memcached --yes --force-yes
 set -e
-sudo DEBIAN_FRONTEND=noninteractive apt-get install chronos clearwater-snmpd=1.0-160214.201323 snmpd=5.7.2~dfsg-clearwater4 snmp=5.7.2~dfsg-clearwater4 --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive apt-get install chronos --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive apt-get install sprout --yes --force-yes -o DPkg::options::=--force-confnew
-sudo DEBIAN_FRONTEND=noninteractive  apt-get install clearwater-management --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-management --yes --force-yes
 sudo systemctl daemon-reload
 ctx logger info "The installation packages is done correctly"
 
