@@ -17,8 +17,9 @@ sudo DEBIAN_FRONTEND=noninteractive  apt-get install default-jre openjdk-8-jre p
 sudo wget http://launchpadlibrarian.net/109052632/python-support_1.0.15_all.deb && sudo dpkg -i python-support_1.0.15_all.deb && sudo rm -f python-support_1.0.15_all.deb
 sudo wget http://openjdk.linaro.org/releases/jdk9-server-release-1605.tar.xz && sudo tar xJf jdk9-server-release-1605.tar.xz && sudo mkdir -p /usr/jdk && sudo mv -n jdk9-server-release-1605 /usr/jdk/ && sudo chown -R root.root /usr/jdk && sudo chmod -R 755 /usr/jdk/ && sudo cp -R /usr/jdk/jdk9-server-release-1605 /usr/lib/jvm/java9-openjdk-1605 && sudo rm -f jdk9-server-release-1605.tar.xz
 sudo apt-get install libjemalloc1
-#sudo wget http://repo.cw-ngv.com/~ubuntu/repo/binary/cassandra_2.1.15_all.deb && sudo dpkg -i cassandra_2.1.15_all.deb && sudo rm -f cassandra_2.1.15_all.deb
-#sudo pip install cassandra-driver
+sudo wget http://10.0.2.6/repo/armband-centos/cassandra_3.5_cavium.deb && sudo dpkg -i cassandra_3.5_cavium.deb && sudo rm -f cassandra_3.5_cavium.deb
+sudo rm -f /usr/lib/pymodules/python2.7/cqlshlib/copyutil.so
+sudo pip install cassandra-driver
 sudo DEBIAN_FRONTEND=noninteractive  apt-get -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confnew install homestead homestead-prov clearwater-prov-tools --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive  apt-get install clearwater-management --yes --force-yes
 sudo systemctl daemon-reload
@@ -27,7 +28,7 @@ ctx logger info "The installation packages is done correctly"
 
 ctx logger info "Use the DNS server"
 echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dnsmasq
-sudo service dnsmasq force-reload
+sudo service dnsmasq restart
 sudo monit unmonitor -g etcd
 sudo service clearwater-etcd start
 
