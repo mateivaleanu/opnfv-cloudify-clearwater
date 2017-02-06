@@ -45,5 +45,6 @@ echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dn
 sudo service dnsmasq restart
 sudo monit unmonitor -g etcd
 sudo service clearwater-etcd start
+echo -e "nameserver 127.0.0.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf > /dev/null
 
 ctx logger info "Installation is done"

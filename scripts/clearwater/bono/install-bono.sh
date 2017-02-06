@@ -12,6 +12,7 @@ sudo apt-get update
 
 ctx logger info "Installing bono packages and other clearwater packages"
 sudo DEBIAN_FRONTEND=noninteractive apt-get install libsnmp30=5.7.2~dfsg-clearwater4 snmpd=5.7.2~dfsg-clearwater4 libsnmp-base=5.7.2~dfsg-clearwater4 --yes --force-yes -o DPkg::options::=--force-confnew
+sudo DEBIAN_FRONTEND=noninteractive apt-get install libcurl3 --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive apt-get install bono restund --yes --force-yes -o DPkg::options::=--force-confnew
 sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-management --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive apt-get install clearwater-snmpd --yes --force-yes
@@ -23,4 +24,5 @@ echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dn
 sudo service dnsmasq restart
 sudo monit unmonitor -g etcd
 sudo service clearwater-etcd start
+echo -e "nameserver 127.0.0.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf > /dev/null
 ctx logger info "Installation is done"

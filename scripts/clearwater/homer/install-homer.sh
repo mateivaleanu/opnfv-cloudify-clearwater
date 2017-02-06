@@ -12,8 +12,17 @@ sudo apt-get update
 
 ctx logger info "Installing homer packages and other clearwater packages"
 set +e
+sudo DEBIAN_FRONTEND=noninteractive  apt-get -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confnew install libsnmp30=5.7.2~dfsg-clearwater4 --yes --force-yes
+sudo DEBIAN_FRONTEND=noninteractive  apt-get install default-jre openjdk-8-jre python-pip --yes
+sudo wget http://10.0.2.6/repo/armband-centos/python-support_1.0.15_all.deb && sudo dpkg -i python-support_1.0.15_all.deb && sudo rm -f python-support_1.0.15_all.deb
+sudo wget http://10.0.2.6/repo/armband-centos/jdk9-server-release-1605.tar.xz && sudo tar xJf jdk9-server-release-1605.tar.xz && sudo mkdir -p /usr/jdk && sudo mv -n jdk9-server-release-1605 /usr/jdk/ && sudo chown -R root.root /usr/jdk && sudo chmod -R 755 /usr/jdk/ && sudo cp -R /usr/jdk/jdk9-server-release-1605 /usr/lib/jvm/java9-openjdk-1605 && sudo rm -f jdk9-server-release-1605.tar.xz
+sudo apt-get install libjemalloc1
+sudo wget http://10.0.2.6/repo/armband-centos/cassandra_3.5_cavium.deb && sudo dpkg -i cassandra_3.5_cavium.deb && sudo rm -f cassandra_3.5_cavium.deb
+sudo rm -f /usr/lib/pymodules/python2.7/cqlshlib/copyutil.so
+sudo pip install cassandra-driver
 sudo DEBIAN_FRONTEND=noninteractive  apt-get -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confnew install homer --yes --force-yes
 sudo DEBIAN_FRONTEND=noninteractive  apt-get install clearwater-management --yes --force-yes
+sudo systemctl daemon-reload
 set -e
 ctx logger info "The installation packages is done correctly"
 
@@ -22,5 +31,6 @@ echo 'RESOLV_CONF=/etc/dnsmasq.resolv.conf' | sudo tee --append  /etc/default/dn
 sudo service dnsmasq restart
 sudo monit unmonitor -g etcd
 sudo service clearwater-etcd start
+echo -e "nameserver 127.0.0.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf > /dev/null
 
 ctx logger info "Installation is done"
