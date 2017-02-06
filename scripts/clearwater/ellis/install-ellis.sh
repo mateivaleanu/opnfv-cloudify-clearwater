@@ -21,3 +21,4 @@ sudo service dnsmasq restart
 sudo monit unmonitor -g etcd
 sudo service clearwater-etcd start
 echo -e "nameserver 127.0.0.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4" | sudo tee /etc/resolv.conf > /dev/null
+sudo mysql -u root -e "update mysql.user set plugin='mysql_native_password'; flush privileges;"
